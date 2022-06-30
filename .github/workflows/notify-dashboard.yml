@@ -1,6 +1,6 @@
 # Notifies gatsby repo on push and merge
 
-name: CI
+name: Notify Dashboard
 
 # Controls when the workflow will run
 on:
