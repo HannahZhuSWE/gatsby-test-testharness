@@ -31,4 +31,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           gh api repos/HannahZhuSWE/gatsby-test/dispatches \
-              --raw-field event_type=rebuild
+              --raw-field event_type=rebuild-site
