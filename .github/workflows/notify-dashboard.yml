@@ -26,9 +26,9 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
-      - name: Notify gatsby repo
+      - name: Notify docusaurus repo
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
-          gh api repos/HannahZhuSWE/gatsby-test/dispatches \
+          gh api repos/HannahZhuSWE/docusaurus-dashboard/dispatches \
               --raw-field event_type=rebuild-site
