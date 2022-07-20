@@ -2,7 +2,8 @@ import { PlaywrightTestConfig } from '@playwright/test';
 const config: PlaywrightTestConfig = {
     testDir: "./tests",
     use: {
-        baseURL: "http://localhost:3000/"
+        baseURL: "http://localhost:3000/",
+        trace: 'on'
     },
     webServer: {
         command: 'npm run start',
