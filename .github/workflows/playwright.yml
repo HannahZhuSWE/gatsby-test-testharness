@@ -39,3 +39,29 @@ jobs:
       run: npm run build
     - name: Run your tests
       run: npm run test
+    - name: Upload HTML report as Artifact
+      uses: actions/upload-artifact@v2
+      if: always()
+      with: 
+        name: run-report
+        path: pw-report/
+
+  storeReports:
+    name: Store reports
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v3
+      id: download
+    - name: Publish to external repo
+      if: always()
+      uses: peaceiris/actions-gh-pages@v3.7.3
+      with:
+        external_repository: HannahZhuSWE/docusaurus-dashboard
+        publish_branch: gh-pages
+        personal_token: ${{ secrets.PERSONAL_TOKEN }}
+        publish_dir: ${{steps.download.outputs.download-path}}
+        keep_files: true
+        user_name: "github-actions[bot]"
+        user_email: "github-actions[bot]@users.noreply.github.com"
