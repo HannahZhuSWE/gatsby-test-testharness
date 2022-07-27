@@ -33,10 +33,26 @@ jobs:
     - uses: actions/setup-node@v3
     - name: Install dependencies
       run: npm ci
-    - name: Install Playwright
-      run: npx playwright install --with-deps
     - name: Build production build
       run: npm run build
+
+  test:
+    name: Playwright tests
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright
+      run: npx playwright install --with-deps
     - name: Run your tests
       run: npm run test
     - name: Upload HTML report as Artifact
@@ -45,7 +61,7 @@ jobs:
       with: 
         name: run-report
         path: pw-report/
-
+        
   storeReports:
     name: Store reports
     needs: test
@@ -65,3 +81,22 @@ jobs:
         keep_files: true
         user_name: "github-actions[bot]"
         user_email: "github-actions[bot]@users.noreply.github.com"
+
+  notify-dashboard:
+    name: Notify Dashboard
+    needs: [test, storeReports]
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Notify docusaurus repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          gh api repos/HannahZhuSWE/docusaurus-dashboard/dispatches \
+              --raw-field event_type=rebuild-site
