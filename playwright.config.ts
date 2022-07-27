@@ -5,6 +5,10 @@ const config: PlaywrightTestConfig = {
         baseURL: "http://localhost:3000/",
         trace: 'on'
     },
+    reporter: [
+      ['html', { outputFolder: 'pw-report' }], 
+      ['json', { outputFolder: 'pw-report', outputFile: 'report.json' }]
+    ],
     webServer: {
         command: 'npm run start',
         port: 3000,
