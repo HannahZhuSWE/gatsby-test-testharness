@@ -39,13 +39,15 @@ jobs:
       run: npm run build
     - name: Run your tests
       run: npm run test
-    - name: Echo date
-      run: echo ${{ steps.date.outputs.date }}
+    - name: Set current date as env variable
+      run: echo "NOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+    - name: Echo current date
+      run: echo $NOW
     - name: Upload HTML report as Artifact
       uses: actions/upload-artifact@v2
       if: always()
       with: 
-        name: ${{ steps.date.outputs.date }}
+        name: $NOW
         path: pw-report/
 
   storeReports:
