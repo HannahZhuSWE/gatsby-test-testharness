@@ -77,5 +77,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
-          gh api repos/HannahZhuSWE/docusaurus-dashboard/dispatches \
+          gh api repos/mspnp/intern-js-pipeline/dispatches \
               --raw-field event_type=rebuild-site
