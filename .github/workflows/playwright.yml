@@ -39,6 +39,8 @@ jobs:
       run: npm run build
     - name: Run your tests
       run: npm run test
+    - name: Echo date
+      run: echo ${{ steps.date.outputs.date }}
     - name: Upload HTML report as Artifact
       uses: actions/upload-artifact@v2
       if: always()
