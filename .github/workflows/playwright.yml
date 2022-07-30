@@ -39,11 +39,16 @@ jobs:
       run: npm run build
     - name: Run your tests
       run: npm run test
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - name: Upload HTML report as Artifact
       uses: actions/upload-artifact@v2
+      env:
+          TAG_NAME: test-report-${{ steps.date.outputs.date }}
       if: always()
       with: 
-        name: test-report-${{ steps.date.outputs.date }}
+        name: $TAG_NAME
         path: pw-report/
 
   storeReports:
