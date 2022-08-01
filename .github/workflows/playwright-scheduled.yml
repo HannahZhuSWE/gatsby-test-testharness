@@ -21,6 +21,7 @@ jobs:
         node-version: [14.x, 16.x, 18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
+
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
@@ -32,11 +33,16 @@ jobs:
       run: npm run build
     - name: Run your tests
       run: npm run test
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - name: Upload HTML report as Artifact
       uses: actions/upload-artifact@v2
+      env:
+          TAG_NAME: test-report-${{ steps.date.outputs.date }}
       if: always()
       with: 
-        name: run-report
+        name: ${{ steps.date.outputs.date }}
         path: pw-report/
 
   storeReports:
@@ -52,10 +58,11 @@ jobs:
       if: always()
       uses: peaceiris/actions-gh-pages@v3.7.3
       with:
-        external_repository: HannahZhuSWE/docusaurus-dashboard
+        external_repository: mspnp/intern-js-pipeline
         publish_branch: gh-pages
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
         publish_dir: ${{steps.download.outputs.download-path}}
+        destination_dir: scheduled-reports/${{ github.repository }}
         keep_files: true
         user_name: "github-actions[bot]"
         user_email: "github-actions[bot]@users.noreply.github.com"
