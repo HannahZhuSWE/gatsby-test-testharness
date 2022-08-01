@@ -64,7 +64,7 @@ jobs:
       if: always()
       uses: peaceiris/actions-gh-pages@v3.7.3
       with:
-        external_repository: HannahZhuSWE/docusaurus-dashboard
+        external_repository: mspnp/intern-js-pipeline
         publish_branch: gh-pages
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
         publish_dir: ${{steps.download.outputs.download-path}}
