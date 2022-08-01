@@ -48,7 +48,7 @@ jobs:
           TAG_NAME: test-report-${{ steps.date.outputs.date }}
       if: always()
       with: 
-        name: ${{ steps.date.outputs.date }}
+        name: test-name
         path: pw-report/
 
   storeReports:
