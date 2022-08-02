@@ -60,7 +60,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3.7.3
       with:
         external_repository: mspnp/intern-js-pipeline
-        publish_branch: main
+        publish_branch: gh-pages
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
         publish_dir: ${{steps.download.outputs.download-path}}
         destination_dir: scheduled-reports/${{ github.repository }}
