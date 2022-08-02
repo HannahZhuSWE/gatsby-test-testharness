@@ -63,7 +63,7 @@ jobs:
         publish_branch: gh-pages
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
         publish_dir: ${{steps.download.outputs.download-path}}
-        destination_dir: scheduled-reports/${{ github.repository }}
+        destination_dir: test-reports/${{ github.repository }}
         keep_files: true
         user_name: "github-actions[bot]"
         user_email: "github-actions[bot]@users.noreply.github.com"
