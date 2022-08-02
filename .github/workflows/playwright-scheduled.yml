@@ -60,7 +60,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3.7.3
       with:
         external_repository: mspnp/intern-js-pipeline
-        publish_branch: gh-pages
+        publish_branch: main
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
         publish_dir: ${{steps.download.outputs.download-path}}
         destination_dir: scheduled-reports/${{ github.repository }}
@@ -81,7 +81,7 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
-      - name: Notify docusaurus repo
+      - name: Notify dashboard repo
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
